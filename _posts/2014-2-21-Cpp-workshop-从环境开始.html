@@ -17,3 +17,18 @@ Appcode如何使用一个第三方的库文件？
 完成以上两步即可访问到该库，无论静态与动态。
 
 gtest独有的问题，gtest使用了libstdc++，而mac的appcode下默认使用的是libc++库，因此，需要在Project Setting里设置该库。
+
+下面一段代码，可以检验环境是否配置好，也是gtest的最简单的使用
+{% highlight c++ %}
+#include <gtest.h>
+
+int main(int argc,  char * argv[])
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
+TEST(first, oneEqual){
+    ASSERT_TRUE(1==1);
+}
+{% endhighlight %}
