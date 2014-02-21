@@ -1,0 +1,19 @@
+---
+   title: Cpp workshop, 从环境开始
+   keyword: C++, 环境,Appcode, gtest
+   layout: blog
+---
+
+
+
+Appcode是JetBrain的，应该是目前最好的c++开发工具。风格与IntelliJ，WebStorm类似.
+
+gtest是google的，全名应该是google c++ test framework，开源的，google官方提供的c++测试框架。
+在https://code.google.com/p/googletest/上可以获得gtest，根据说明，即可构建lib文件。
+
+Appcode如何使用一个第三方的库文件？
+    1. add framework and library （在工具栏中File->Add->Frameworks and libraries)
+    2. search header path 与 search library path里面，分别包含使用的库（在Project Setting(command+;)）
+完成以上两步即可访问到该库，无论静态与动态。
+
+gtest独有的问题，gtest使用了libstdc++，而mac的appcode下默认使用的是libc++库，因此，需要在Project Setting里设置该库。
