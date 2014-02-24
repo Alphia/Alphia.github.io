@@ -1,0 +1,44 @@
+---
+   title: Const与指针
+   layout: blog
+   keyword: const 指针
+---
+
+看到const与指针的组合，例如int const* x; int *const x;
+总是不能读出它的意思，而是需要查它的意思，到底谁是指向常量的指针，谁是指向固定内存的指针
+查的次数多了，就想找到个方法记住它
+
+
+const的本质：
+    在我看来，const的本质是限定一块内存被写保护。
+
+const变量为什么要赋初值？
+    如果不，按照const本身的功能，将不会得到有意义的值。
+
+根据const 的本质，改变一下写法会易读：
+    {% highlight c++ %}
+    int const *x <==> int cosnt (*x) 
+    int * const x ==> 
+    #define intptr int*
+    intptr const x;
+    {% endhighlight %}
+
+一些例子：
+1. int const *x 为什么不需要赋初值？
+    因为赋初值是给x赋值，但此处const保护的是*x。容易发现int * const x需要赋初值。
+    
+2. const int m = 0; int *const mp = &m; 这段代码会出错，为什么？
+    因为m的内存空间是const的，而*mp是非const的，int* 指向 const int会出错，应指向int i
+    因此，正确的情况应是：
+    {% highlight c++ %}
+    int m = 0;
+    int *mp = &m;
+    
+    //or
+    int cosnt m = 0;
+    int const *mp = &m;
+
+    //or
+    int m = 0;
+    int const *mp = &m; //int const * 可以指向 int
+    {% endhighlight %}
